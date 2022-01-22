@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-python+pygameg實現經典的《坦克大战》遊戲
+python+pygameg實現經典的《坦克大戰》遊戲
 """
 import os
 import uuid
@@ -11,7 +11,7 @@ import threading
 
 
 class Timer(object):
-    """ 計時器，定時執行回調函数"""
+    """ 計時器，定時執行回調函數"""
     def __init__(self):
         self.timers = []
 
@@ -36,11 +36,11 @@ class Timer(object):
     def update(self, time_passed):
         for timer in self.timers:
             timer["time"] += time_passed
-            # 夠間隔時間就調用回調函数並重新計時
+            # 夠間隔時間就調用回調函數並重新計時
             if timer["time"] >= timer["interval"]:
                 timer["time"] -= timer["interval"]
                 timer["times"] += 1
-                # 調用次數滿就移除該回調函数的計時器，否則調用該回調函数
+                # 調用次數滿就移除該回調函數的計時器，否則調用該回調函數
                 if timer["repeat"] > -1 and timer["times"] == timer["repeat"]:
                     self.timers.remove(timer)
                 try:
@@ -108,8 +108,8 @@ class Bonus(object):
         手雷：敵人全滅
         頭盔：暫時無敵
         鐵锹：基地城牆變為鋼板
-        星星：火力增强
-        坦克：加一條生命
+        星星：增加坦克移動速度1最高加到5
+        肌肉：加一條生命、加血量50
         時鐘：所有敵人暂停一段時間
     """
     # 寶物類型
@@ -1709,7 +1709,7 @@ class Game(object):
     def drawIntroScreen(self, put_on_surface = True):
         """ 畫選擇界面 """
         global screen
-        # 遊戲窗口圖片
+        # 遊戲窗口背景圖片
         BACK_IMAGE = "./picture/back.jpeg"
         back_image = pygame.image.load(BACK_IMAGE)
         screen.blit(back_image, (0,0))
@@ -2033,7 +2033,7 @@ class Game(object):
                         player.lives -= 1
                         if player.lives > 0:
                             self.respawnPlayer(player)
-                            sounds["diemuc"].play()
+                            sounds["diemuc"].play()      #坦克死亡音效
                         else:
                             self.gameOver()
 
